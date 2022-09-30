@@ -1,3 +1,7 @@
+# Custom folder
+*/Binaries/
+*/Intermediate/
+
 # Visual Studio 2015 user specific files
 .vs/
 

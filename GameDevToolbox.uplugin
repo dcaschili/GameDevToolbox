@@ -1,0 +1,25 @@
+{
+    "FileVersion" : 3,
+    "Version" : 1,
+    "VersionName" : "1.0",
+    "FriendlyName" : "GameDevToolbox Plugin",
+    "Description" : "Plugin containing different utilities modules",
+    "Category" : "",
+    "CreatedBy" : "dcaschili",
+    "CreatedByURL" : "",
+    "DocsURL" : "",
+    "MarketplaceURL" : "",
+    "SupportURL" : "",
+    "EnabledByDefault" : true,
+    "CanContainContent" : false,
+    "IsBetaVersion" : false,
+    "Installed" : false,
+    "Modules":
+    [
+        {
+            "Name":"GameDevToolboxUI",
+            "Type":"Runtime",
+            "LoadingPhase":"Default"
+        }
+    ]
+}
