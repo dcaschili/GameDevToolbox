@@ -14,7 +14,8 @@ public class GameDevToolboxUI : ModuleRules
             "Core",
             "CoreUObject",
             "Engine",
-            "UMG"            
+            "UMG",
+            "CommonUI"            
             });
     }
 }
