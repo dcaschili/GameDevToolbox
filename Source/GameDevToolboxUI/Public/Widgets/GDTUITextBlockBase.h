@@ -1,0 +1,34 @@
+#pragma once
+
+#include "CoreMinimal.h"
+#include "CommonTextBlock.h"
+
+#include "GDTUITextBlockBase.generated.h"
+
+/**
+
+*/
+UCLASS(ClassGroup = UI, meta = (Category = "GameDevToolboxUI", DisplayName = "GDT Text Block Base", PrioritizeCategories = "Content"))
+class GAMEDEVTOOLBOXUI_API UGDTUITextBlockBase : public UCommonTextBlock
+{
+    GENERATED_BODY()
+public:
+	// TODO: Implement localization system
+
+protected:
+
+	virtual TSharedRef<SWidget> RebuildWidget() override;
+
+#if WITH_EDITOR	
+	virtual const FText GetPaletteCategory() override;	
+#endif // WITH_EDITOR
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Text")
+	FName ContentText {};
+	/**
+		If true, during construction, ContentText will be used as an id 
+		to retrieve the text from the TextHandlerSubsystem.
+	*/
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Text")
+	bool bUseContentAsTextId = true;
+};
