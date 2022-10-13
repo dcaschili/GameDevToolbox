@@ -24,7 +24,7 @@ FText UGDTUITextFunctionLibrary::GetTextById(const UObject* WorldContextObject, 
 			}
 			else
 			{
-				UE_LOG(GDTUITextDataLog, Warning, TEXT("Can't find id %s in text id data table: %s"), *TextId.ToString(), *TextByIdTable->GetName());
+				UE_LOG(GDTUILog, Warning, TEXT("Can't find id %s in text id data table: %s"), *TextId.ToString(), *TextByIdTable->GetName());
 			}
 		}
 	}

@@ -17,7 +17,7 @@ const UDataTable* UGDTUITextHandlerSubsystem::GetTextDataTable() const
 	}
 	else
 	{
-		UE_LOG(GDTUITextDataLog, Error, TEXT("Missing text data table. You should initialize the UGDTUITextHandlerSubsystem to display text id values!"));
+		UE_LOG(GDTUILog, Error, TEXT("Missing text data table. You should initialize the UGDTUITextHandlerSubsystem to display text id values!"));
 		ensure(false);
 		return nullptr;
 	}  

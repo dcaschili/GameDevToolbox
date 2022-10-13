@@ -13,10 +13,9 @@ class GAMEDEVTOOLBOXUI_API UGDTUITextBlockBase : public UCommonTextBlock
 {
     GENERATED_BODY()
 public:
-	// TODO: Implement localization system
+	void SetContentText(const FName& InContent, bool bInUseContentAsTextId = false);
 
 protected:
-
 	virtual TSharedRef<SWidget> RebuildWidget() override;
 
 #if WITH_EDITOR	
@@ -31,4 +30,7 @@ protected:
 	*/
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Text")
 	bool bUseContentAsTextId = true;
+
+private:
+	void UpdateText();
 };
