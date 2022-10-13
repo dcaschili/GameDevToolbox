@@ -1,3 +1,3 @@
 #include "GDTUILogCategories.h"
 
-DEFINE_LOG_CATEGORY(GDTUITextDataLog);
+DEFINE_LOG_CATEGORY(GDTUILog);
