@@ -8,7 +8,10 @@
 
 class UGDTUITextBlockBase;
 
-UCLASS(ClassGroup = UI, meta = (Category = "GameDevToolboxUI", DisplayName = "GDT Button Base", PrioritizeCategories = "Content"))
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FGDTUIButtonBaseSelectedStateChanged, const FName&, ButtonId, bool, bSelected);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FGDTUIButtonBaseClicked, const FName&, ButtonId);
+
+UCLASS(ClassGroup = UI, meta = (Category = "GameDevToolboxUI", DisplayName = "GDTUI Button Base", PrioritizeCategories = "Content"))
 class GAMEDEVTOOLBOXUI_API UGDTUIUWButtonBase : public UCommonButtonBase
 {
     GENERATED_BODY()
@@ -17,9 +20,15 @@ public:
 
 	FName GetButtonId() const { return ButtonConfiguration.ButtonId; }	
 
+	FGDTUIButtonBaseClicked OnButtonBaseClickedDelegate{};
+
 protected:
 	virtual void NativeConstruct() override;
-
+	
+	// UCommonButtonBase
+	virtual void NativeOnClicked() override;
+	// ~UCommonButtonBase
+	
 	virtual void InnerApplyButtonConfiguration() {}
 
 #if WITH_EDITOR	

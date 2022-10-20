@@ -10,6 +10,12 @@ void UGDTUIUWButtonBase::NativeConstruct()
 	ApplyButtonConfiguration();
 }
 
+void UGDTUIUWButtonBase::NativeOnClicked()
+{
+	UE_LOG(GDTUILog, VeryVerbose, TEXT("Button Clicked: %s"), *GetButtonId().ToString());
+	OnButtonBaseClickedDelegate.Broadcast(ButtonConfiguration.ButtonId);
+}
+
 #if WITH_EDITOR	
 const FText UGDTUIUWButtonBase::GetPaletteCategory()
 {
