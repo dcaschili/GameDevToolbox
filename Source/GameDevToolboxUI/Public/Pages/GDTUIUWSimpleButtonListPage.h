@@ -26,9 +26,6 @@ protected:
 
 	virtual void InnerHandleButtonClicked(const FName& ButtonId) {}
 
-	UPROPERTY(EditInstanceOnly, Category = "Configuration", meta = (TitleProperty = "ButtonId"))
-	TArray<FGDTUIButtonConfiguration> ButtonsConfiguration{};
-
 private:
 	UFUNCTION()
 	void HandleButtonClicked(const FName& ButtonId);

@@ -8,7 +8,13 @@
 #include "GDTUILogCategories.h"
 #include "GDTUICategoryPaletteDefinitions.h"
 
-UWidget* UGDTUIUWSimpleButtonList::GetFirstFocusWidget() const
+void UGDTUIUWSimpleButtonList::SetButtonsConfiguration(const TArray<FGDTUIButtonConfiguration>& InButtonsConfiguration)
+{
+	RuntimeButtonsConfiguration = InButtonsConfiguration;
+	BuildButtonsList(RuntimeButtonsConfiguration.GetValue());
+}
+
+UWidget* UGDTUIUWSimpleButtonList::NativeGetDesiredFocusTarget() const
 {
 	if (ButtonsList.Num() > 0)
 	{
@@ -17,40 +23,40 @@ UWidget* UGDTUIUWSimpleButtonList::GetFirstFocusWidget() const
 	return nullptr;
 }
 
-void UGDTUIUWSimpleButtonList::SetButtonsConfiguration(const TArray<FGDTUIButtonConfiguration>& InButtonsConfiguration)
-{
-	ButtonsConfiguration = InButtonsConfiguration;
-	BuildButtonsList();
-}
-
 void UGDTUIUWSimpleButtonList::HandleButtonListClicked(const FName& ButtonId)
 {
 	UE_LOG(GDTUILog, Verbose, TEXT("List button Clicked: %s"), *ButtonId.ToString());	
 	OnButtonListClickedDelegate.Broadcast(ButtonId);
 }
 
-void UGDTUIUWSimpleButtonList::BuildButtonsList()
+void UGDTUIUWSimpleButtonList::BuildButtonsList(const TArray<FGDTUIButtonConfiguration>& InButtonsConfiguration)
 {
 	ensure(ButtonsVerticalBoxContainer);
 
-	TSubclassOf<UGDTUIUWButtonBase> TmpGameButtonClass = ButtonClass;
+	TSubclassOf<UCommonButtonBase> TmpGameButtonClass = ButtonClass;
 	if (!TmpGameButtonClass)
 	{
+		UE_LOG(GDTUILog, Warning, TEXT("Missing list button class! Using default class."));
+		ensure(false);
 		TmpGameButtonClass = UGDTUIUWButtonBase::StaticClass();
 	}
 
 	// Init buttons and register to callbacks.
 	if (ButtonsVerticalBoxContainer)
 	{
+		RemoveButtonsBindings();
+
+		ButtonsList.Empty();
 		ButtonsVerticalBoxContainer->ClearChildren();
 
-		for (const FGDTUIButtonConfiguration& ButtonConfig : ButtonsConfiguration)
+		for (const FGDTUIButtonConfiguration& ButtonConfig : InButtonsConfiguration)
 		{
 			UGDTUIUWButtonBase* Button = CreateWidget<UGDTUIUWButtonBase>(this, TmpGameButtonClass);
-			if (Button)
+			if (ensure(Button))
 			{
 				Button->SetButtonConfiguration(ButtonConfig);
 				Button->OnButtonBaseClickedDelegate.AddUniqueDynamic(this, &ThisClass::HandleButtonListClicked);
+				
 				ButtonsList.Add(Button);
 				if (UVerticalBoxSlot* VerticalBoxSlot = ButtonsVerticalBoxContainer->AddChildToVerticalBox(Button))
 				{
@@ -76,29 +82,41 @@ void UGDTUIUWSimpleButtonList::BuildButtonsList()
 					}
 				}
 			}
-
 		}
 	}
 }
 
-void UGDTUIUWSimpleButtonList::NativeConstruct()
+void UGDTUIUWSimpleButtonList::RemoveButtonsBindings()
 {
-	BuildButtonsList();
-
-	Super::NativeConstruct();
-}
-
-void UGDTUIUWSimpleButtonList::NativeDestruct()
-{
-	for (UGDTUIUWButtonBase* GameButton : ButtonsList)
+	for (UGDTUIUWButtonBase* Button : ButtonsList)
 	{
-		if (GameButton)
+		if (Button)
 		{
-			GameButton->OnButtonBaseClickedDelegate.RemoveDynamic(this, &ThisClass::HandleButtonListClicked);
+			Button->OnButtonBaseClickedDelegate.RemoveDynamic(this, &ThisClass::HandleButtonListClicked);
 		}
 	}
+}
 
-	Super::NativeDestruct();
+void UGDTUIUWSimpleButtonList::InnerOnActivated()
+{
+	Super::InnerOnActivated();
+	
+	if (RuntimeButtonsConfiguration.IsSet())
+	{
+		BuildButtonsList(RuntimeButtonsConfiguration.GetValue());
+	}
+	else
+	{
+		BuildButtonsList(DefaultButtonsConfiguration);
+	}
+}
+
+void UGDTUIUWSimpleButtonList::InnerOnDeactivated()
+{
+	RemoveButtonsBindings();
+	RuntimeButtonsConfiguration.Reset();
+
+	Super::InnerOnDeactivated();
 }
 
 #if WITH_EDITOR

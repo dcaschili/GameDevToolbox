@@ -3,22 +3,6 @@
 #include "Components/Widget.h"
 #include "GDTUILogCategories.h"
 
-void UGDTUIUWBasePage::NativeOnActivated()
-{
-	Super::NativeOnActivated();
-
-	InnerOnActivated();
-
-	InnerSetupFirstFocus();
-}
-
-void UGDTUIUWBasePage::NativeOnDeactivated()
-{
-	InnerOnDeactivated();
-
-	Super::NativeOnDeactivated();
-}
-
 void UGDTUIUWBasePage::InnerSetupFirstFocus()
 {
 	UWidget* Widget = GetDesiredFocusTarget();
@@ -33,4 +17,3 @@ void UGDTUIUWBasePage::InnerSetupFirstFocus()
 		ensure(false);
 	}
 }
-

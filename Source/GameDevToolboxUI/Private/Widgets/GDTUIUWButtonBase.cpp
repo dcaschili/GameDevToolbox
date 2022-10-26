@@ -12,6 +12,7 @@ void UGDTUIUWButtonBase::NativeConstruct()
 
 void UGDTUIUWButtonBase::NativeOnClicked()
 {
+	Super::NativeOnClicked();
 	UE_LOG(GDTUILog, VeryVerbose, TEXT("Button Clicked: %s"), *GetButtonId().ToString());
 	OnButtonBaseClickedDelegate.Broadcast(ButtonConfiguration.ButtonId);
 }

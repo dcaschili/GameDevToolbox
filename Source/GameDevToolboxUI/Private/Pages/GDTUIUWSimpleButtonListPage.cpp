@@ -6,11 +6,10 @@
 
 UWidget* UGDTUIUWSimpleButtonListPage::NativeGetDesiredFocusTarget() const
 {
-	if (IGDTUIFirstFocusInterface* FirstFocusObject = Cast<IGDTUIFirstFocusInterface>(ButtonList))
+	if (ButtonList)
 	{
-		return FirstFocusObject->GetFirstFocusWidget();
+		return ButtonList->GetDesiredFocusTarget();
 	}
-
 	return Super::NativeGetDesiredFocusTarget();
 }
 
@@ -21,7 +20,7 @@ void UGDTUIUWSimpleButtonListPage::InnerOnActivated()
 	if (ButtonList)
 	{
 		ButtonList->OnButtonListClickedDelegate.AddUniqueDynamic(this, &ThisClass::HandleButtonClicked);
-		ButtonList->SetButtonsConfiguration(ButtonsConfiguration);
+		ButtonList->ActivateWidget();
 	}
 
 	Execute_RefreshUI(this);
@@ -32,6 +31,7 @@ void UGDTUIUWSimpleButtonListPage::InnerOnDeactivated()
 	if (ButtonList)
 	{
 		ButtonList->OnButtonListClickedDelegate.RemoveDynamic(this, &ThisClass::HandleButtonClicked);
+		ButtonList->DeactivateWidget();
 	}
 
 	Super::InnerOnDeactivated();
