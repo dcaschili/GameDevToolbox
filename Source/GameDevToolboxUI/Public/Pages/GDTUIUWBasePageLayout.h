@@ -7,11 +7,20 @@
 
 class UCommonActivatableWidgetStack;
 
-UCLASS(Abstract, ClassGroup = UI, meta = (Category = "GameDevToolboxUI", DisplayName = "GDTUI Base Page Layout", PrioritizeCategories = "Content"))
+UENUM(BlueprintType)
+enum class EPageLayoutStackType : uint8
+{
+	Main,
+	Popup
+};
+
+UCLASS(Abstract)
 class GAMEDEVTOOLBOXUI_API UGDTUIUWBasePageLayout : public UGDTUIUWBaseActivatableWidget
 {
     GENERATED_BODY()
 public:
+	UFUNCTION(BlueprintCallable, Category = "Page Layout")
+	UCommonActivatableWidget* PushWidget(TSubclassOf<UGDTUIUWBaseActivatableWidget> InWidgetClass, EPageLayoutStackType InStackType = EPageLayoutStackType::Main);
 
 protected:
 	UPROPERTY(BlueprintReadOnly, meta=(BindWidget))
@@ -20,4 +29,6 @@ protected:
 	UPROPERTY(BlueprintReadOnly, meta=(BindWidget))
 	UCommonActivatableWidgetStack* PopupStack {};
 
+private:
+	UCommonActivatableWidgetStack* GetWidgetStackByType(EPageLayoutStackType InStackType);
 };

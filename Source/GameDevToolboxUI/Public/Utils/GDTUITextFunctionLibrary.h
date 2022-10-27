@@ -13,6 +13,6 @@ public:
     /**
      * Convert a text id to its corresponding text value.
     */
-    UFUNCTION(BlueprintCallable, Category = "UI")
+    UFUNCTION(BlueprintCallable, Category = "GDT|UI|Layout")
     static FText GetTextById(const UObject* WorldContextObject, const FName& TextId);
 };
