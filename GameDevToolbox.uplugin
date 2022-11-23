@@ -20,6 +20,11 @@
             "Name":"GameDevToolboxUI",
             "Type":"Runtime",
             "LoadingPhase":"Default"
+        },
+        {
+            "Name":"GameDevToolboxCore",
+            "Type":"Runtime",
+            "LoadingPhase":"Defualt"
         }
     ],
     "Plugins":
