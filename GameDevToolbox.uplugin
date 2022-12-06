@@ -24,7 +24,7 @@
         {
             "Name":"GameDevToolboxCore",
             "Type":"Runtime",
-            "LoadingPhase":"Defualt"
+            "LoadingPhase":"Default"
         }
     ],
     "Plugins":
