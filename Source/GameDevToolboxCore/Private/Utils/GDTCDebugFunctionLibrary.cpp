@@ -8,7 +8,7 @@
 
 const float UGDTCDebugFunctionLibrary::LineLength = 500.0f;
 const float UGDTCDebugFunctionLibrary::LineThickness = 15.0f;
-const float UGDTCDebugFunctionLibrary::BoxThickness = 50.0f;
+const float UGDTCDebugFunctionLibrary::BoxThickness = 15.0f;
 
 const float UGDTCDebugFunctionLibrary::SphereRadius = 100.0f;
 const float UGDTCDebugFunctionLibrary::SphereThickness = 15.0f;
