@@ -11,8 +11,10 @@ class UDataTable;
 	This subsystem handles the custom textId-text translation system.
 	It can be enabled from config and requires a data table to specify the mappings.
 	It is used by the Utility function and the text blocks widgets.
+	In order to use it, you should implement a blueprint version and provide the data table.
+	The bluprint must be placed on the content folder no subdirectories.
 */
-UCLASS(Abstract, Blueprintable)
+UCLASS(Config=Game)
 class GAMEDEVTOOLBOXUI_API UGDTUITextHandlerSubsystem : public UGameInstanceSubsystem
 {
     GENERATED_BODY()
@@ -25,13 +27,12 @@ public:
 	virtual void Deinitialize() override;
 	// ~USubsystem
 
-	static bool IsEnabledFromConfig();
-
 private:
-	// Data table containing the mapping text id - text
-	UPROPERTY(EditDefaultsOnly, Category="Configuration")
-	UDataTable* TextDataTable {};	
+	UPROPERTY(Config)
+	bool bTextHandlerEnabledFromConfig = false;
+	UPROPERTY(Config)
+	FSoftObjectPath TextIdToTextDataTablePath{};
 
-	static const FString ConfigSection;
-	static const FString ConfigName;
+	UPROPERTY()
+	TObjectPtr<UDataTable> TextDataTable{};
 };

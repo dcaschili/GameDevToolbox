@@ -1,6 +1,5 @@
 #pragma once
 
-#include "CoreMinimal.h"
 #include "CommonTextBlock.h"
 
 #include "GDTUITextBlockBase.generated.h"
@@ -22,13 +21,13 @@ protected:
 	virtual const FText GetPaletteCategory() override;	
 #endif // WITH_EDITOR
 	
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Text")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "GDTUI|Text")
 	FName ContentText {};
 	/**
 		If true, during construction, ContentText will be used as an id 
 		to retrieve the text from the TextHandlerSubsystem.
 	*/
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Text")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "GDTUI|Text")
 	bool bUseContentAsTextId = true;
 
 private:

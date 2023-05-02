@@ -1,19 +1,7 @@
 #include "GDTUITextHandlerSubsystem.h"
 
-#include "UObject/ConstructorHelpers.h"
 #include "GDTUILogCategories.h"
-#include "Misc/ConfigCacheIni.h"
-
-const FString UGDTUITextHandlerSubsystem::ConfigName = TEXT("bTextHandlerSubsystemEnabled");
-const FString UGDTUITextHandlerSubsystem::ConfigSection = TEXT("TextHandlerSubsystem");
-
-bool UGDTUITextHandlerSubsystem::IsEnabledFromConfig()
-{
-	bool bEnabledFromConfig = false;
-	GConfig->GetBool(*ConfigSection, *ConfigName, bEnabledFromConfig, GGameIni);
-
-	return bEnabledFromConfig;
-}
+#include "Engine/DataTable.h"
 
 const UDataTable* UGDTUITextHandlerSubsystem::GetTextDataTable() const
 {
@@ -23,7 +11,7 @@ const UDataTable* UGDTUITextHandlerSubsystem::GetTextDataTable() const
 	}
 	else
 	{
-		UE_LOG(GDTUILog, Error, TEXT("Missing text data table. You should create and add the data table to the text handler subsystem!"));
+		UE_LOG(GDTUILog, Error, TEXT("Missing text data table. You should setup the data table from Game.ini file"));
 		ensure(false);
 		return nullptr;
 	}  
@@ -32,11 +20,21 @@ const UDataTable* UGDTUITextHandlerSubsystem::GetTextDataTable() const
 void UGDTUITextHandlerSubsystem::Initialize(FSubsystemCollectionBase& Collection)
 {
 	Super::Initialize(Collection);
+
+	if (bTextHandlerEnabledFromConfig)
+	{
+		TextDataTable = Cast<UDataTable>(TextIdToTextDataTablePath.TryLoad());
+		if (!TextDataTable)
+		{
+			UE_LOG(GDTUILog, Error, TEXT("Can't find TextId data table. Check the path you added to the Game .ini file!"));
+			ensure(false);
+		}
+	}
 }
 
 bool UGDTUITextHandlerSubsystem::ShouldCreateSubsystem(UObject* Outer) const
 {
-	return IsEnabledFromConfig();
+	return bTextHandlerEnabledFromConfig;
 }
 
 void UGDTUITextHandlerSubsystem::Deinitialize()

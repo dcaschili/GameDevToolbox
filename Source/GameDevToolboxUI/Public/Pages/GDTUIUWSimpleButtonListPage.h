@@ -1,6 +1,5 @@
 #pragma once
 
-#include "CoreMinimal.h"
 #include "Pages/GDTUIUWBasePage.h"
 #include "Data/GDTUIButtonConfiguration.h"
 

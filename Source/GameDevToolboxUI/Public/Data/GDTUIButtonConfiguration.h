@@ -14,5 +14,7 @@ public:
     FName ButtonId{};
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Button Configuration")
     FName ButtonText{};
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Button Configuration")
+	bool bUseButtonTextAsTextId = true;
 
 };

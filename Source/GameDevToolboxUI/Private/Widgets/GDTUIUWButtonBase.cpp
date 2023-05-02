@@ -28,7 +28,7 @@ void UGDTUIUWButtonBase::ApplyButtonConfiguration()
 {
 	if (ButtonText)
 	{
-		ButtonText->SetContentText(ButtonConfiguration.ButtonText);
+		ButtonText->SetContentText(ButtonConfiguration.ButtonText, ButtonConfiguration.bUseButtonTextAsTextId);
 	}
 
 	InnerApplyButtonConfiguration();

@@ -6,7 +6,6 @@
 #include "Components/Spacer.h"
 #include "Blueprint/WidgetTree.h"
 #include "GDTUILogCategories.h"
-#include "GDTUICategoryPaletteDefinitions.h"
 
 void UGDTUIUWSimpleButtonList::SetButtonsConfiguration(const TArray<FGDTUIButtonConfiguration>& InButtonsConfiguration)
 {
@@ -72,7 +71,7 @@ void UGDTUIUWSimpleButtonList::BuildButtonsList(const TArray<FGDTUIButtonConfigu
 				USpacer* Spacer = WidgetTree->ConstructWidget<USpacer>(USpacer::StaticClass());
 				if (Spacer)
 				{
-					Spacer->Size = SpacerSize;
+					Spacer->SetSize(SpacerSize);
 					if (UVerticalBoxSlot* VerticalBoxSlot = ButtonsVerticalBoxContainer->AddChildToVerticalBox(Spacer))
 					{
 						FSlateChildSize ChildSize{};
@@ -118,11 +117,4 @@ void UGDTUIUWSimpleButtonList::InnerOnDeactivated()
 
 	Super::InnerOnDeactivated();
 }
-
-#if WITH_EDITOR
-const FText UGDTUIUWSimpleButtonList::GetPaletteCategory()
-{
-	return GDTUICategoryPaletteDefinitions::Default;
-}
-#endif
 

@@ -1,6 +1,5 @@
 #pragma once
 
-#include "CoreMinimal.h"
 #include "Widgets/GDTUIUWBaseActivatableWidget.h"
 #include "Data/GDTUIButtonConfiguration.h"
 
@@ -12,17 +11,17 @@ class UCommonButtonBase;
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FGDTUIButtonListClicked, const FName&, ButtonId);
 
-UCLASS(BlueprintType, Blueprintable, ClassGroup = UI, meta = (Category = "GameDevToolboxUI", DisplayName = "GDTUI Simple Button List", PrioritizeCategories = "Content"))
+UCLASS(BlueprintType, Blueprintable, Abstract, ClassGroup = UI, meta = (Category = "GameDevToolboxUI", DisplayName = "GDTUI Simple Button List", PrioritizeCategories = "Content"))
 class GAMEDEVTOOLBOXUI_API UGDTUIUWSimpleButtonList : public UGDTUIUWBaseActivatableWidget	
 {
 	GENERATED_BODY()
 public:
-
 	void SetButtonsConfiguration(const TArray<FGDTUIButtonConfiguration>& InButtonsConfiguration);
 
 	FGDTUIButtonListClicked OnButtonListClickedDelegate{};
 
 protected:
+
 	// UCommonActivatableWidget
 	virtual UWidget* NativeGetDesiredFocusTarget() const override;
 	// ~UCommonActivatableWidget
@@ -31,10 +30,6 @@ protected:
 	virtual void InnerOnActivated() override;
 	virtual void InnerOnDeactivated() override;
 	// ~UGDTUIBaseActivatableWidget
-
-#if WITH_EDITOR	
-	virtual const FText GetPaletteCategory() override;
-#endif // WITH_EDITOR
 
 	UPROPERTY(BlueprintReadWrite, meta = (BindWidget))
 	TObjectPtr<UVerticalBox> ButtonsVerticalBoxContainer{};

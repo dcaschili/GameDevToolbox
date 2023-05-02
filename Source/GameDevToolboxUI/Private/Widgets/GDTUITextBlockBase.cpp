@@ -39,7 +39,14 @@ void UGDTUITextBlockBase::UpdateText()
 
 			UE_LOG(GDTUILog, Verbose, TEXT("TextId: %s converted into: %s"), *ContentText.ToString(), *ConvertedText.ToString());
 
-			SetText(ConvertedText);
+			if (ConvertedText.IsEmpty())
+			{
+				SetText(FText::FromName(ContentText));
+			}
+			else
+			{
+				SetText(ConvertedText);
+			}
 		}
 		else
 		{

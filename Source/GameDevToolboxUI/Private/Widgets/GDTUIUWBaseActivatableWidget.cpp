@@ -15,3 +15,4 @@ void UGDTUIUWBaseActivatableWidget::NativeOnDeactivated()
 
 	Super::NativeOnDeactivated();
 }
+

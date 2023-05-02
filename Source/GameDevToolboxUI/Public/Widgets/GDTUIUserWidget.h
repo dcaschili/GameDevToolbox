@@ -1,6 +1,5 @@
 #pragma once
 
-#include "CoreMinimal.h"
 #include "CommonUserWidget.h"
 #include "Interfaces/GDTUIRefreshableInterface.h"
 
