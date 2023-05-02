@@ -5,6 +5,8 @@
 
 #include "GDTUIUWSimpleButtonListPage.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FGDTUIUWSimpleButtonListPageClicked, const FName&, ButtonId);
+
 class UGDTUIUWSimpleButtonList;
 
 UCLASS(Abstract)
@@ -12,6 +14,8 @@ class GAMEDEVTOOLBOXUI_API UGDTUIUWSimpleButtonListPage : public UGDTUIUWBasePag
 {
     GENERATED_BODY()
 public:
+
+	FGDTUIUWSimpleButtonListPageClicked OnButtonClicked{};
 
 protected:
 	// UCommonActivatableWidget

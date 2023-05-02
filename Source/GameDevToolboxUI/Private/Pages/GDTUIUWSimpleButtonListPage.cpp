@@ -41,4 +41,6 @@ void UGDTUIUWSimpleButtonListPage::HandleButtonClicked(const FName& ButtonId)
 {
 	UE_LOG(GDTUILog, VeryVerbose, TEXT("Clicked button: %s on page: %s"), *ButtonId.ToString(), *GetName());
 	InnerHandleButtonClicked(ButtonId);
+
+	OnButtonClicked.Broadcast(ButtonId);
 }
