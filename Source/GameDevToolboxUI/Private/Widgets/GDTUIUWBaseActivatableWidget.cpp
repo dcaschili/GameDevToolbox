@@ -5,8 +5,11 @@ void UGDTUIUWBaseActivatableWidget::NativeOnActivated()
 	Super::NativeOnActivated();
 
 	InnerOnActivated();
-
-	InnerSetupFirstFocus();
+	
+	if (bNeedFirstFocusSetup)
+	{
+		InnerSetupFirstFocus();
+	}
 }
 
 void UGDTUIUWBaseActivatableWidget::NativeOnDeactivated()

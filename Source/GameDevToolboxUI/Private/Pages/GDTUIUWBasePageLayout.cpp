@@ -28,6 +28,9 @@ UCommonActivatableWidgetStack* UGDTUIUWBasePageLayout::GetWidgetStackByType(EPag
 	case EPageLayoutStackType::Popup:
 		Stack = PopupStack;
 		break;
+	case EPageLayoutStackType::GameUI:
+		Stack = GameUIStack;
+		break;
 	default:
 		break;
 	}

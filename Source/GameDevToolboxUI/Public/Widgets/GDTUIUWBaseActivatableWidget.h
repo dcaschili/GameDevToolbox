@@ -23,4 +23,8 @@ protected:
 	*/
 	virtual void InnerSetupFirstFocus() {}
 
+private:
+	UPROPERTY(EditDefaultsOnly, Category="GDTUI|Focus")
+	bool bNeedFirstFocusSetup = true;
+
 };
