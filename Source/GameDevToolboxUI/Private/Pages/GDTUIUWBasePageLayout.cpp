@@ -17,7 +17,21 @@ UCommonActivatableWidget* UGDTUIUWBasePageLayout::PushWidget(TSubclassOf<UGDTUIU
 	}
 }
 
-UCommonActivatableWidgetStack* UGDTUIUWBasePageLayout::GetWidgetStackByType(EPageLayoutStackType InStackType)
+UCommonActivatableWidget* UGDTUIUWBasePageLayout::GetActiveWidget(EPageLayoutStackType InStackType) const
+{
+	if (UCommonActivatableWidgetStack* const Stack = GetWidgetStackByType(InStackType))
+	{
+		return Stack->GetActiveWidget();
+	}
+	else
+	{
+		UE_LOG(GDTUILog, Warning, TEXT("Can't find common activatable widget stack for type: %s"), *UEnum::GetValueAsString(InStackType));
+		ensure(false);
+		return nullptr;
+	}
+}
+
+UCommonActivatableWidgetStack* UGDTUIUWBasePageLayout::GetWidgetStackByType(EPageLayoutStackType InStackType) const
 {
 	UCommonActivatableWidgetStack* Stack{};
 	switch (InStackType)

@@ -22,6 +22,9 @@ class GAMEDEVTOOLBOXUI_API UGDTUIUWBasePageLayout : public UGDTUIUWBaseActivatab
 public:
 	UFUNCTION(BlueprintCallable, Category = "Page Layout")
 	UCommonActivatableWidget* PushWidget(TSubclassOf<UGDTUIUWBaseActivatableWidget> InWidgetClass, EPageLayoutStackType InStackType = EPageLayoutStackType::Main);
+	
+	UFUNCTION(BlueprintCallable, Category = "Page Layout")
+	UCommonActivatableWidget* GetActiveWidget(EPageLayoutStackType InStackType) const;
 
 protected:
 	/** Used for menu pages */
@@ -38,5 +41,5 @@ protected:
 	UCommonActivatableWidgetStack* PopupStack {};
 
 private:
-	UCommonActivatableWidgetStack* GetWidgetStackByType(EPageLayoutStackType InStackType);
+	UCommonActivatableWidgetStack* GetWidgetStackByType(EPageLayoutStackType InStackType) const;
 };
