@@ -50,6 +50,12 @@ void UGDTUIUWSimpleButtonList::BuildButtonsList(const TArray<FGDTUIButtonConfigu
 
 		for (const FGDTUIButtonConfiguration& ButtonConfig : InButtonsConfiguration)
 		{
+			if (ButtonConfig.ButtonId.IsNone())
+			{
+				ensure(false);
+				continue;
+			}
+
 			UGDTUIUWButtonBase* Button = CreateWidget<UGDTUIUWButtonBase>(this, TmpGameButtonClass);
 			if (ensure(Button))
 			{
