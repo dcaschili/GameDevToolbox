@@ -26,6 +26,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Page Layout")
 	UCommonActivatableWidget* GetActiveWidget(EPageLayoutStackType InStackType) const;
 
+	UFUNCTION(BlueprintCallable, Category = "Page Layout")
+	void ClearLayoutStack(EPageLayoutStackType InStackType);
+
 protected:
 	/** Used for menu pages */
 	UPROPERTY(BlueprintReadOnly, meta=(BindWidget))

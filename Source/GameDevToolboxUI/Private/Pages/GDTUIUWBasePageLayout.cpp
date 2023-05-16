@@ -11,7 +11,7 @@ UCommonActivatableWidget* UGDTUIUWBasePageLayout::PushWidget(TSubclassOf<UGDTUIU
 	}
 	else
 	{
-		UE_LOG(GDTUILog, Warning, TEXT("Can't find common activatable widget stack for type: %s"), *UEnum::GetValueAsString(InStackType));
+		GDTUI_LOG(GDTUILog, Warning, TEXT("Can't find common activatable widget stack for type: %s"), *UEnum::GetValueAsString(InStackType));
 		ensure(false);
 		return nullptr;
 	}
@@ -25,9 +25,23 @@ UCommonActivatableWidget* UGDTUIUWBasePageLayout::GetActiveWidget(EPageLayoutSta
 	}
 	else
 	{
-		UE_LOG(GDTUILog, Warning, TEXT("Can't find common activatable widget stack for type: %s"), *UEnum::GetValueAsString(InStackType));
+		GDTUI_LOG(GDTUILog, Warning, TEXT("Can't find common activatable widget stack for type: %s"), *UEnum::GetValueAsString(InStackType));
 		ensure(false);
 		return nullptr;
+	}
+}
+
+void UGDTUIUWBasePageLayout::ClearLayoutStack(EPageLayoutStackType InStackType)
+{
+	if (UCommonActivatableWidgetStack* const Stack = GetWidgetStackByType(InStackType))
+	{
+		Stack->ClearWidgets();
+	}
+	else
+	{
+		GDTUI_LOG(GDTUILog, Warning, TEXT("Can't find common activatable widget stack for type: %s"), *UEnum::GetValueAsString(InStackType));
+		ensure(false);
+		return;
 	}
 }
 

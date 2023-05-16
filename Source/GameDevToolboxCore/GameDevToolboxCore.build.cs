@@ -13,7 +13,7 @@ public class GameDevToolboxCore : ModuleRules
         PublicDependencyModuleNames.AddRange(new string[] {
             "Core",
             "CoreUObject",
-            "Engine"                       
+            "Engine"                   
             });
     }
 }
