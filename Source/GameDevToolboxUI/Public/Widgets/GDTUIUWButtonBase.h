@@ -6,6 +6,7 @@
 #include "GDTUIUWButtonBase.generated.h"
 
 class UGDTUITextBlockBase;
+class UGDTUIButtonAudioConfiguration;
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FGDTUIButtonBaseSelectedStateChanged, const FName&, ButtonId, bool, bSelected);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FGDTUIButtonBaseClicked, const FName&, ButtonId);
@@ -35,8 +36,10 @@ protected:
 #endif // WITH_EDITOR
 	
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Configuration")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Configuration")
 	FGDTUIButtonConfiguration ButtonConfiguration{};
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Configuration")
+	TObjectPtr<UGDTUIButtonAudioConfiguration> ButtonAudioConfiguration{};
 
 private:
 	void ApplyButtonConfiguration();

@@ -3,6 +3,8 @@
 #include "GDTUICategoryPaletteDefinitions.h"
 #include "Widgets/GDTUITextBlockBase.h"
 #include "GDTUILogCategories.h"
+#include "Data/GDTUIButtonAudioConfiguration.h"
+#include "Kismet/GameplayStatics.h"
 
 void UGDTUIUWButtonBase::NativeConstruct()
 {
@@ -13,8 +15,16 @@ void UGDTUIUWButtonBase::NativeConstruct()
 void UGDTUIUWButtonBase::NativeOnClicked()
 {
 	Super::NativeOnClicked();
-	UE_LOG(GDTUILog, VeryVerbose, TEXT("Button Clicked: %s"), *GetButtonId().ToString());
+	
+	if (ButtonAudioConfiguration && ButtonAudioConfiguration->OnClickSound)
+	{
+		// Play sound that persists level travel.
+		UGameplayStatics::SpawnSound2D(this, ButtonAudioConfiguration->OnClickSound, 1.0f, 1.0f, 0.0f, nullptr, true, true);
+	}
+
+	GDTUI_SHORT_LOG(GDTUILog, VeryVerbose, TEXT("Button Clicked: %s"), *GetButtonId().ToString());
 	OnButtonBaseClickedDelegate.Broadcast(ButtonConfiguration.ButtonId);
+
 }
 
 #if WITH_EDITOR	
