@@ -4,6 +4,16 @@
 
 #include "GDTUITextBlockBase.generated.h"
 
+
+UENUM(BlueprintType)
+enum class ETextCaseEnum : uint8
+{
+	kNormal		UMETA(DisplayName = "Normal"),
+	kUppercase	UMETA(DisplayName = "Uppercase"),
+	kLowercase	UMETA(DisplayName = "Lowercase")
+};
+
+
 /**
 
 */
@@ -29,6 +39,8 @@ protected:
 	*/
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "GDTUI|Text")
 	bool bUseContentAsTextId = true;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "GDTUI|Text")
+	ETextCaseEnum TextCase = ETextCaseEnum::kNormal;
 
 private:
 	void UpdateText();

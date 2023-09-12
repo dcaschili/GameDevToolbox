@@ -33,6 +33,7 @@ void UGDTUITextBlockBase::UpdateText()
 {
 	if (!ContentText.IsNone())
 	{
+		FText NewText{};
 		if (bUseContentAsTextId)
 		{
 			const FText ConvertedText = UGDTUITextFunctionLibrary::GetTextById(this, ContentText);
@@ -41,16 +42,36 @@ void UGDTUITextBlockBase::UpdateText()
 
 			if (ConvertedText.IsEmpty())
 			{
-				SetText(FText::FromName(ContentText));
+				NewText = FText::FromName(ContentText);
 			}
 			else
 			{
-				SetText(ConvertedText);
+				NewText = ConvertedText;
 			}
 		}
 		else
 		{
-			SetText(FText::FromName(ContentText));
+			NewText = FText::FromName(ContentText);
 		}
+
+
+		switch (TextCase)
+		{
+		case ETextCaseEnum::kNormal:
+			// Nothing to do here
+			break;
+		case ETextCaseEnum::kUppercase:
+			NewText = NewText.ToUpper();
+			break;
+		case ETextCaseEnum::kLowercase:
+			NewText = NewText.ToLower();
+			break;
+		default:
+			ensure(false);
+			return;
+			break;
+		}
+
+		SetText(NewText);
 	}
 }
